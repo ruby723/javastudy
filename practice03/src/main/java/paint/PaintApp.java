@@ -7,8 +7,17 @@ public class PaintApp {
 		point1.setX(10);
 		point1.setY(20);
 		point1.show();
+		point1.show(false);
 		
 		Point point2=new Point(100,200);
 		point2.show();
+		
+		Point point3=new ColorPoint();
+		point3.setX(50);
+		point3.setY(100);
+		((ColorPoint)point3).setColor("red");//point3이 부모클래스로 명시가 되서 다운캐스팅 해줌
+		point3.show();
+		point3.show(true);//boolean 메소드 수정을 안했음에도 불구하고 코드의 재사용덕분에 수정없음
+		
 	}
 }

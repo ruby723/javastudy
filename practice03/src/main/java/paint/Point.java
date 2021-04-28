@@ -24,4 +24,18 @@ public class Point {
 	public void show() {
 		System.out.println("["+x+","+y+"]에 점을 그렸습니다.");
 	}
+	
+	public void show(boolean visible) {
+		if(visible) {
+//			System.out.println("["+x+","+y+"]에 점을 그렸습니다.");
+			show();//코드 복붙x, 코드 재사용
+		}else {
+			System.out.println("["+x+","+y+"]에 점을 지웠습니다.");
+			
+		}
+	}
+	//메소드 오버로딩
+//	void disappear() {
+//		System.out.println("["+x+","+y+"]에 점을 지웠습니다.");
+//	}
 }
