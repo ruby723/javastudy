@@ -1,8 +1,14 @@
 # Java Programing
-## helloworld
-1. 그냥 연습
 
-##chapter03
-객체지향 프로그래밍 연습
+## practice01
+- java programming 기초예제
 
-##chapter04
+## practice02
+- java programming 기초예제2
+
+## practice03
+- java 객체지향
+	- 클래스 상속
+	- overriding/overloding
+	- 코드의 재사용
+	- Interface
