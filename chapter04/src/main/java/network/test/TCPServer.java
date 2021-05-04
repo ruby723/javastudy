@@ -29,8 +29,7 @@ public class TCPServer {
 			
 			InetSocketAddress inetRemoteSocketAddress = (InetSocketAddress)socket.getRemoteSocketAddress();
 			
-			String remoteHostAddress=
-					inetRemoteSocketAddress.getAddress().getHostAddress();
+			String remoteHostAddress=inetRemoteSocketAddress.getAddress().getHostAddress();
 			int remoteHostPort=inetRemoteSocketAddress.getPort();
 			System.out.println("[server] connected by client["+remoteHostAddress+":"+remoteHostPort+"]");
 			
