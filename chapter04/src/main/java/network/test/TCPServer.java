@@ -12,10 +12,12 @@ public class TCPServer {
 
 	public static void main(String[] args) {
 		
-		// 1. 서비서소켓 생성
 		ServerSocket serverSocket=null;
 		
 		try {
+			// 1. 서버소켓 생성
+			serverSocket=new ServerSocket();
+			
 			// 2. 바인딩(binding)
 			// Socket에 InetSocketAddress(IPAddress+Port)
 			// IPAddress : 0.0.0.0 모든 IP연결 허용

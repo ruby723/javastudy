@@ -20,7 +20,7 @@ public class NSLookup {
 				
 				InetAddress[] inetAddresses=InetAddress.getAllByName(line);
 				for(InetAddress inetAddress : inetAddresses) {
-					System.out.println(line+":"+inetAddress+getHostAddress());
+					System.out.println(line+":"+inetAddress.getHostAddress());
 				}
 				
 				}catch(UnknownHostException ex) {
