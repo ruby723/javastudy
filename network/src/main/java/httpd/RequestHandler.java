@@ -33,7 +33,7 @@ public class RequestHandler extends Thread {
 			while(true) {
 				String line = br.readLine();
 				
-				// 브라우저가 연ㄹ결을 끊으면
+				// 브라우저가 연결을 끊으면
 				if(line==null) {
 					break;
 				}
@@ -58,12 +58,7 @@ public class RequestHandler extends Thread {
 				responseStaticResource(os,tokens[1], tokens[2]);
 			}else { // methods : POTST, PUT, DELETE, HEAD, CONNECT 등이 들어올 수 있음.
 				/* Simple Http Server에서는 무시 */
-
-				// 응답예시
-				//HTTP/1.1 400 Bas Request \r\n
-				//Content-Type:text/html;chareset=utf-8\r\n
-				//\r\n
-				//HTML 에러문서 위치 (./webapp/error/404.html)
+				response400Error(os,tokens[1],tokens[2]);
 			}
 			
 			
@@ -91,11 +86,46 @@ public class RequestHandler extends Thread {
 		}			
 	}
 
+	private void response400Error(OutputStream os, String url, String protocol)throws IOException {
+		if("/".equals(url)) {
+			url="/index.html";
+		}
+		File file = new File("/error/400.html");
+		if(file.exists()==false) {
+			response404Error(os,url,protocol);
+			return;
+		}
+		
+		byte[] body=Files.readAllBytes(file.toPath());
+		os.write((protocol+"400 Bas Request \r\n").getBytes("UTF-8"));
+		os.write("Content-Type:text/html;chareset=utf-8\r\n".getBytes("UTF-8"));
+		os.write("\r\n".getBytes("UTF-8"));
+		os.write(body);
+	}
+	
+	private void response404Error(OutputStream os, String url, String protocol)throws IOException {
+		if("/".equals(url)) {
+			url="/index.html";
+		}
+		File file = new File("./webapp/error/404.html");
+		
+		if(file.exists()==false) {
+			response404Error(os,url,protocol);
+			return;
+		}
+		
+		byte[] body=Files.readAllBytes(file.toPath());
+		os.write("HTTP/1.1 404 File Not Found \r\n".getBytes("UTF-8"));
+		os.write("Content-Type:text/html;chareset=utf-8\r\n".getBytes("UTF-8"));
+		os.write("\r\n".getBytes("UTF-8"));
+		os.write(body);
+	}
+	
 	private void responseStaticResource(OutputStream os, String url, String protocol) throws IOException{
 		
 		// Welcom Files set
 		if("/".equals(url)) {
-			url="/indes.html";
+			url="/index.html";
 		}
 
 		File file = new File(DOCUMENT_ROOT+url);
@@ -105,7 +135,7 @@ public class RequestHandler extends Thread {
 			//Content-Type:text/html;chareset=utf-8\r\n
 			//\r\n
 			//HTML 에러문서 위치 (./webapp/error/404.html)
-			//response404Error(os,url,protocal);
+			response404Error(os,url,protocol);
 			return;
 		}
 		
