@@ -18,6 +18,24 @@ public class TCPClient {
 			// 1. 소켓 생성
 			socket = new Socket();
 
+			// 1-1. 소켓버퍼사이즈 확인
+			int receiveBufferSize = socket.getReceiveBufferSize();
+			int sendBufferSize=socket.getSendBufferSize();
+			System.out.println("[client]"+receiveBufferSize+":"+sendBufferSize);
+			
+			// 1-2. 소켓 버퍼사이즈 변경
+			socket.setReceiveBufferSize(1024*10);
+			socket.setSendBufferSize(1024*10);
+			receiveBufferSize=socket.getSendBufferSize();
+			System.out.println("[client]"+receiveBufferSize);
+			
+			// 1-3.  SO_NODELAY(Nagle Algorithm off)
+			socket.setTcpNoDelay(true); // 파일을 더 빨리 보내고싶을때 사용
+			
+			// 1-4. SO_TIMEOUT
+			socket.setSoTimeout(10);//데이터받기를 대기중인 소켓이 일정시간이상 데이터를 못받으면 타임아웃
+			//catch(SocketTimeout으로 예외처리)
+			
 			// 2. 서버 연결
 			socket.connect(new InetSocketAddress(SERVER_IP,SERVER_PORT));
 			System.out.println("[client] connected");
