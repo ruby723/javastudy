@@ -16,6 +16,10 @@ public class EchoClient {
 	private static final int SERVER_PORT = EchoServer.PORT;
 	
 	public static void main(String[] args) {
+		if(args.length==0) {
+			System.out.println("실행방법: Java EchoClient ServerIP");
+			return;
+		}
 		Socket socket=null;
 		Scanner scanner=null;
 		
