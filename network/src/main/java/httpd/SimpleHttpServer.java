@@ -1,13 +1,12 @@
 package httpd;
 
 import java.io.IOException;
-import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 public class SimpleHttpServer {
-	private static final int PORT = 8080;
+	private static final int PORT = 8888;
 
 	public static void main(String[] args) {
 
@@ -18,12 +17,9 @@ public class SimpleHttpServer {
 			serverSocket = new ServerSocket();
 			   
 			// 2. Bind
-			
-			String localhost = InetAddress.getLocalHost().getHostAddress();
-			
-			serverSocket.bind( new InetSocketAddress(localhost,PORT) );
-			consolLog("starts... ["+localhost+":"+PORT+"]");
-			
+			serverSocket.bind(new InetSocketAddress( "0.0.0.0", PORT ));
+			consolLog("starts... [port:" + PORT + "]");
+
 			while (true) {
 				// 3. Wait for connecting ( accept )
 				Socket socket = serverSocket.accept();
@@ -38,7 +34,7 @@ public class SimpleHttpServer {
 			// 5. 자원정리
 			try {
 				if (serverSocket != null && serverSocket.isClosed() == false) {
-					serverSocket.close(); // 한번 연결할때 한번 요청하고 한번 응답 후 끊어버린다.
+					serverSocket.close();
 				}
 			} catch (IOException ex) {
 				consolLog("error:" + ex);
